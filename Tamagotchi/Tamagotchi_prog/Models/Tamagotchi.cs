@@ -5,9 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace Tamagotchi.Models
+namespace Tamagotchi_prog.Models
 {
-    //[Table("Tamagotchi")]
+    [Table("Tamagotchi")]
     public class Tamagotchi
     {
         [Key]
@@ -20,5 +20,8 @@ namespace Tamagotchi.Models
         public int Boredom { get; set; }
 
         public int Health { get; set; }
+
+        public DateTime LastAccessTime { get; set; }
+
     }
 }
