@@ -6,11 +6,11 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{4D2FD0C0-02CE-4FA6-A99F-D99CBC6E66F4}</ProjectGuid>
+    <ProjectGuid>{92398726-ADF6-4787-A527-A06932DDB13A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tamagotchi.Tests</RootNamespace>
-    <AssemblyName>Tamagotchi.Tests</AssemblyName>
+    <RootNamespace>Tamagotchi_2016.Tests</RootNamespace>
+    <AssemblyName>Tamagotchi_2016.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

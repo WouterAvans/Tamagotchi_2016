@@ -3,9 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tamagotchi", "Tamagotchi\Tamagotchi.csproj", "{2991BC41-8867-42E2-9542-9EC240E6AAC3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tamagotchi_prog", "Tamagotchi_prog\Tamagotchi_prog.csproj", "{FC5E6411-41CE-4869-B7B3-713254DB2E20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tamagotchi.Tests", "Tamagotchi.Tests\Tamagotchi.Tests.csproj", "{4D2FD0C0-02CE-4FA6-A99F-D99CBC6E66F4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{B863626E-21AC-4E79-B110-7C90B7EB13B9}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\AzureWebsitePublishModule.psm1 = PublishScripts\AzureWebsitePublishModule.psm1
+		PublishScripts\Publish-WebApplicationWebsite.ps1 = PublishScripts\Publish-WebApplicationWebsite.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configurations", "{D7223CC5-96F4-4BCB-8439-806027730F90}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Configurations\Tamagotchiprog-WAWS-dev.json = PublishScripts\Configurations\Tamagotchiprog-WAWS-dev.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,16 +22,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2991BC41-8867-42E2-9542-9EC240E6AAC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2991BC41-8867-42E2-9542-9EC240E6AAC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2991BC41-8867-42E2-9542-9EC240E6AAC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2991BC41-8867-42E2-9542-9EC240E6AAC3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4D2FD0C0-02CE-4FA6-A99F-D99CBC6E66F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4D2FD0C0-02CE-4FA6-A99F-D99CBC6E66F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4D2FD0C0-02CE-4FA6-A99F-D99CBC6E66F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4D2FD0C0-02CE-4FA6-A99F-D99CBC6E66F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC5E6411-41CE-4869-B7B3-713254DB2E20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC5E6411-41CE-4869-B7B3-713254DB2E20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC5E6411-41CE-4869-B7B3-713254DB2E20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC5E6411-41CE-4869-B7B3-713254DB2E20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D7223CC5-96F4-4BCB-8439-806027730F90} = {B863626E-21AC-4E79-B110-7C90B7EB13B9}
 	EndGlobalSection
 EndGlobal
