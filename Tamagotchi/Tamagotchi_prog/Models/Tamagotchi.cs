@@ -20,5 +20,8 @@ namespace Tamagotchi_prog.Models
         public int Boredom { get; set; }
 
         public int Health { get; set; }
+
+        public DateTime LastAccessTime { get; set; }
+
     }
 }
