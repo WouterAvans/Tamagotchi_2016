@@ -38,7 +38,7 @@ namespace Tamagotchi_prog.Repository
 
         private String GetGameRule()
         {
-            
+            return null;
         }
        
     }
