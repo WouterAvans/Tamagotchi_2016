@@ -22,6 +22,17 @@ namespace Tamagotchi_prog.Models
                 Sleep = 30
             });
 
+            context.Settings.Add(new Settings()
+            {
+                EnabledRules = new Dictionary<String, bool>
+                {
+                    {"Boredom", true},
+                    {"Hunger", true},
+                    {"Fatigue", true},
+                    {"Isolation", true}
+                }
+            });
+
             context.SaveChanges();
         }
     }

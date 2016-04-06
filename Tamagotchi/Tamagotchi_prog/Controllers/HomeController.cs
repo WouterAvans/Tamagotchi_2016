@@ -19,7 +19,6 @@ namespace Tamagotchi_prog.Controllers
             using (var context = new MyContext())
             {
                 ViewBag.Message = "Your application description page.";
-
                 return View(context.Tamagotchis.ToList());
             }
         }
