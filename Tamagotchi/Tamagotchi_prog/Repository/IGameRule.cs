@@ -4,11 +4,12 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 
 namespace Tamagotchi_prog.Models
 {
-    interface IGameRule
+    public interface IGameRule
     {
-        Tamagotchi ExecuteRule(Tamagotchi tamagotchi);
+        void ExecuteRule(Tamagotchi tamagotchi, double timePassed, Dictionary<String , int> multipliers);
     }
 }
