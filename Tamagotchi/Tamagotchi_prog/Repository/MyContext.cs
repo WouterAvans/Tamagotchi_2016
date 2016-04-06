@@ -9,6 +9,7 @@ namespace Tamagotchi_prog.Models
     public class MyContext : DbContext
     {
         public DbSet<Tamagotchi> Tamagotchis { get; set; }
+        public DbSet<Settings> Settings { get; set; }
 
         public MyContext()
             : base("name=DefaultConnection")

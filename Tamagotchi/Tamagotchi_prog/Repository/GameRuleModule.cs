@@ -10,35 +10,37 @@ namespace Tamagotchi_prog.Repository
 {
     public class GameRuleModule : NinjectModule
     {
-        private String _gameRule;
 
         public override void Load()
         {
-            _gameRule = GetGameRule();
-            _gameRule = _gameRule.ToLower();
+            var settingsDictonary = GetGameRule();
 
-            switch (_gameRule)
+            if (settingsDictonary["Fatigue"])
             {
-                case "fatigue":
-                    Bind<IGameRule>().To<FatigueRule>();
-                    break;
-                case "hunger":
-                    Bind<IGameRule>().To<HungerRule>();
-                    break;
-                case "boredom":
-                    Bind<IGameRule>().To<BoredomRule>();
-                    break;
-                case "isolation":
-                    Bind<IGameRule>().To<IsolationRule>();
-                    break;
-                default:
-                    throw new Exception("unknown rule given");
+                Bind<IGameRule>().To<FatigueRule>();
             }
+
+            if (settingsDictonary["Hunger"])
+            {
+                Bind<IGameRule>().To<HungerRule>();
+            }
+
+            if (settingsDictonary["Boredom"])
+            {
+                Bind<IGameRule>().To<BoredomRule>();
+            }
+
+            if (settingsDictonary["Isolation"])
+            {
+                Bind<IGameRule>().To<IsolationRule>();
+            }
+
         }
 
-        private String GetGameRule()
+        private Dictionary<String, bool> GetGameRule()
         {
-            return null;
+            MyContext Context = new MyContext();
+            return Context.Settings.First().EnabledRules;
         }
        
     }
