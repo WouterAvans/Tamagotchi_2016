@@ -7,11 +7,11 @@ using System.Web;
 
 namespace Tamagotchi.Models
 {
-    [Table("Tamagotchi")]
+    //[Table("Tamagotchi")]
     public class Tamagotchi
     {
         [Key]
-        public string Name { get; set; }
+        public String Name { get; set; }
 
         public int Hunger { get; set; }
 
