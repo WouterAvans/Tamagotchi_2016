@@ -23,5 +23,6 @@ namespace Tamagotchi_prog.Models
 
         public DateTime LastAccessTime { get; set; }
 
+        public Boolean IsDead { get; set; }
     }
 }
