@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Ninject.Modules;
-using Tamagotchi_prog.Models;
-using Tamagotchi_prog.Models.GameRules;
+using Tamagotchi_prog.Repository;
 
-namespace Tamagotchi_prog.Repository
+namespace Tamagotchi_prog.Models.GameRules
 {
     public class GameRuleModule : NinjectModule
     {
@@ -39,8 +37,16 @@ namespace Tamagotchi_prog.Repository
 
         private Dictionary<String, bool> GetGameRule()
         {
-            MyContext Context = new MyContext();
-            return Context.Settings.First().EnabledRules;
+            var EnabledRules = new Dictionary<String, bool>
+            {
+                {"Boredom", true},
+                {"Hunger", true},
+                {"Fatigue", true},
+                {"Isolation", true}
+            };
+            //MyContext Context = new MyContext();
+            //return Context.Settings.First().EnabledRules;
+            return EnabledRules;
         }
        
     }

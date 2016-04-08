@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Tamagotchi_prog.Models;
+using Tamagotchi_prog.Repository;
 
 namespace Tamagotchi_prog.Controllers
 {

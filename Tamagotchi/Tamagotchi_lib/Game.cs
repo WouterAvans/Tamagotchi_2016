@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Migrations;
-using System.Linq;
-using Ninject;
-using Tamagotchi_prog.Models.GameActions;
-using Tamagotchi_prog.Models.GameRules;
-using Tamagotchi_prog.Repository;
+using Tamagotchi_prog.Models;
 
-namespace Tamagotchi_prog.Models
+namespace Tamagotchi_lib
 {
     public class Game
     {
-        private readonly MyContext _myContext;
         public Dictionary<String, double> RuleMultipliers;
         public Dictionary<String, double> ActionMultipliers;
         public Dictionary<String, double> ActionTimeSpan;
@@ -20,9 +14,6 @@ namespace Tamagotchi_prog.Models
 
         public Game()
         {
-            _myContext = new MyContext();
-            ActionModule = new GameActionModule();
-
             //Base Rule Multipliers in minutes. Will be overriden by status effects
             RuleMultipliers = new Dictionary<string, double>
             {
@@ -51,6 +42,9 @@ namespace Tamagotchi_prog.Models
                 {"workout", 1},
                 {"hug", 1}
             };
+
+            ActionModule = new GameActionModule();
+
         }
        
         public double PassedTime(DateTime time)
@@ -63,21 +57,13 @@ namespace Tamagotchi_prog.Models
         {
             foreach (var rule in EnabledRules)
             {
-                tamagotchi = rule.ExecuteRule(tamagotchi, PassedTime(tamagotchi.LastAccessTime) , RuleMultipliers);
+                rule.ExecuteRule(tamagotchi, PassedTime(tamagotchi.LastAccessTime) , RuleMultipliers);
             }
-
-            _myContext.Tamagotchis.AddOrUpdate(tamagotchi);
-            _myContext.SaveChanges();
         }
 
         public void ExecuteAction(Tamagotchi tamagotchi, Action action)
         {
             
-        }
-
-        public Tamagotchi GetTamagotchi()
-        {
-            return _myContext.Tamagotchis.First();
         }
     }
 }

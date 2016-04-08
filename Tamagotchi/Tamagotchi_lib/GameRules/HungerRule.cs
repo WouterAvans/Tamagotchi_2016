@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Tamagotchi_prog.Models;
 
-namespace Tamagotchi_prog.Models.GameRules
+namespace Tamagotchi_lib.GameRules
 {
     public class HungerRule : IGameRule
     {
-        public Tamagotchi ExecuteRule(Tamagotchi tamagotchi, double timePassed, Dictionary<string, double> multipliers)
+        public void ExecuteRule(Tamagotchi tamagotchi, double timePassed, Dictionary<string, double> multipliers)
         {
             if (tamagotchi.StatusEffects.Contains(StatusEffect.Munchies))
             {
@@ -21,7 +22,6 @@ namespace Tamagotchi_prog.Models.GameRules
                 tamagotchi.IsDead = true;
             }
 
-            return tamagotchi;
         }
     }
 }
