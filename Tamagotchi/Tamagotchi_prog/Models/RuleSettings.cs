@@ -7,13 +7,16 @@ using System.Web;
 
 namespace Tamagotchi_prog.Models
 {
-    [Table("Settings")]
-    public class Settings
+    [Table("RuleSettings")]
+    public class RuleSettings
     {
         //This was required for entity framework to preform a succesfull model to code...
         [Key] public int SettingsId { get; set; }
 
-        //Contains all rules currently enabled
-        public Dictionary<String, bool> EnabledRules { get; set; }
+        public Boolean Boredom { get; set; }
+        public Boolean Hunger { get; set; }
+        public Boolean Fatigue { get; set; }
+        public Boolean Isolation { get; set; }
+
     }
 }

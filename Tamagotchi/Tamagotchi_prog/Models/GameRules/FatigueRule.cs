@@ -10,7 +10,7 @@ namespace Tamagotchi_prog.Models.GameRules
 
             tamagotchi.Sleep += (int)Math.Round(timePassed * multipliers["fatigue"]);
 
-            if (tamagotchi.Sleep >= 100 && !tamagotchi.StatusEffects.Contains(StatusEffect.Athlete))
+            if (tamagotchi.Sleep >= 100 && !tamagotchi.StatusEffects.Athlete)
             {
                 tamagotchi.IsDead = true;
             }

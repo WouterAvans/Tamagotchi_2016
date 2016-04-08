@@ -21,7 +21,10 @@ namespace Tamagotchi_prog.Models
 
         public DateTime LastAccessTime { get; set; }
 
-        public List<StatusEffect> StatusEffects { get; set; }
+        //[ForeignKey("StatusEffect")]
+        public int StatusEffectId { get; set; }
+
+        public virtual StatusEffect StatusEffects { get; set; }
 
         public Boolean IsDead { get; set; }
     }

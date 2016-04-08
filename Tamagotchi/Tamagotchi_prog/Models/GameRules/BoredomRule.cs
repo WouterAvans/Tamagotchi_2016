@@ -8,15 +8,15 @@ namespace Tamagotchi_prog.Models.GameRules
         public Tamagotchi ExecuteRule(Tamagotchi tamagotchi, double timePassed, Dictionary<string, double> multipliers)
         {
 
-            tamagotchi.Boredom += (int) Math.Round(timePassed * multipliers["Boredom"]);
+            tamagotchi.Boredom += (int) Math.Round(timePassed * multipliers["boredom"]);
 
             if (tamagotchi.Boredom >= 80)
             {
-                tamagotchi.StatusEffects.Add(StatusEffect.Munchies);
+                tamagotchi.StatusEffects.Munchies = true;
             }
-            else if(tamagotchi.StatusEffects.Contains(StatusEffect.Munchies))
+            else if(tamagotchi.StatusEffects.Munchies)
             {
-                tamagotchi.StatusEffects.Remove(StatusEffect.Munchies);
+                tamagotchi.StatusEffects.Munchies = false;
             }
 
             return tamagotchi;
