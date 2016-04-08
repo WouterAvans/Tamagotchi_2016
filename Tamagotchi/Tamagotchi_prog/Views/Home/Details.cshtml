@@ -1,0 +1,62 @@
+﻿@model Tamagotchi_prog.Models.Tamagotchi
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div class="row">
+    <h4>@Html.DisplayFor(model => model.Name)</h4>
+    <hr />
+    <div class="col-md-1">
+        <img src="@Html.DisplayFor(model => model.ImageURL)" width="110" height="148" />
+    </div>
+    <div class="col-md-1">
+        <dl class="dl-horizontal">
+            <dt>
+               @Html.DisplayNameFor(model => model.Hunger)               
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Hunger)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Sleep)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Sleep)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Boredom)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Boredom)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Health)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Health)
+            </dd>
+        </dl>
+    </div>
+</div>
+<br>
+<div class="btn-group">
+    <button type="button" class="btn btn-primary">Eten</button>
+    <button type="button" class="btn btn-primary">Slapen</button>
+    <button type="button" class="btn btn-primary">Spelen</button>
+    <button type="button" class="btn btn-primary">Trainen</button>
+    <button type="button" class="btn btn-primary">Knuffelen</button>
+</div>
+<hr>
+<p>
+    @Html.ActionLink("Terug naar lijst", "Index")
+</p>

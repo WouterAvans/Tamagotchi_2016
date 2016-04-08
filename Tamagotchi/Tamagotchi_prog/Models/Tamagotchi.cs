@@ -23,6 +23,8 @@ namespace Tamagotchi_prog.Models
 
         public DateTime LastAccessTime { get; set; }
 
-        public Boolean IsDead { get; set; }
+        public String ImageURL { get; set; }
+
+        // public Boolean IsDead { get; set; }
     }
 }
