@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace Tamagotchi_prog.Models
 {
@@ -25,6 +23,10 @@ namespace Tamagotchi_prog.Models
 
         public String ImageURL { get; set; }
 
-        // public Boolean IsDead { get; set; }
+        public int StatusEffectId { get; set; }
+
+        public virtual StatusEffect StatusEffects { get; set; }
+
+        public Boolean IsDead { get; set; }
     }
 }

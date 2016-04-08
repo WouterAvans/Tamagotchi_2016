@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
+using Tamagotchi_prog.Models;
 
-namespace Tamagotchi_prog.Models
+namespace Tamagotchi_prog.Repository
 {
-    public class MyContextInitializer : DropCreateDatabaseIfModelChanges<MyContext>
+    public class MyContextInitializer : DropCreateDatabaseAlways<MyContext>
     {
 
         protected override void Seed(MyContext context)
@@ -19,7 +19,23 @@ namespace Tamagotchi_prog.Models
                 Boredom = 60,
                 Health = 50,
                 Hunger = 40,
-                Sleep = 30
+                Sleep = 30,
+                IsDead = false,
+                LastAccessTime = new DateTime(2016, 4, 8, 11, 0, 0),
+                StatusEffects = new StatusEffect()
+                {
+                    Athlete = false,
+                    Crazy = false,
+                    Munchies = false
+                }
+            });
+
+            context.RuleSettings.Add(new RuleSettings()
+            {
+                Boredom = true,
+                Hunger = true,
+                Fatigue = true,
+                Isolation = true
             });
 
             context.SaveChanges();

@@ -5,6 +5,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Tamagotchi_prog.Models;
+using Tamagotchi_prog.Repository;
 
 namespace Tamagotchi_prog.Controllers
 {
@@ -109,7 +110,6 @@ namespace Tamagotchi_prog.Controllers
             using (var context = new MyContext())
             {
                 ViewBag.Message = "Your application description page.";
-
                 return View(context.Tamagotchis.ToList());
             }
         }
