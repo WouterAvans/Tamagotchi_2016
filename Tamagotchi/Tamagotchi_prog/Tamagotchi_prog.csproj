@@ -237,6 +237,13 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\img\bored_tamagotchi.png" />
+    <Content Include="Content\img\dead_tamagotchi.png" />
+    <Content Include="Content\img\hungry_tamagotchi.png" />
+    <Content Include="Content\img\normal_tamagotchi.png" />
+    <Content Include="Content\img\sleepy_tamagotchi.png" />
+    <Content Include="Content\img\TamagotchiBackground.jpg" />
+    <Content Include="Content\img\unhealthy_tamagotchi.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -308,6 +315,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Home\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
