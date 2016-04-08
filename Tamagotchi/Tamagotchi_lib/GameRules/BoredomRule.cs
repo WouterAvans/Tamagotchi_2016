@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Tamagotchi_prog.Models;
 
-namespace Tamagotchi_prog.Models.GameRules
+namespace Tamagotchi_lib.GameRules
 {
     public class BoredomRule : IGameRule
     {
-        public Tamagotchi ExecuteRule(Tamagotchi tamagotchi, double timePassed, Dictionary<string, double> multipliers)
+        public void ExecuteRule(Tamagotchi tamagotchi, double timePassed, Dictionary<string, double> multipliers)
         {
 
             tamagotchi.Boredom += (int) Math.Round(timePassed * multipliers["Boredom"]);
@@ -18,8 +19,6 @@ namespace Tamagotchi_prog.Models.GameRules
             {
                 tamagotchi.StatusEffects.Remove(StatusEffect.Munchies);
             }
-
-            return tamagotchi;
         }
     }
 }

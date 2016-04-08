@@ -1,4 +1,4 @@
-﻿namespace Tamagotchi_prog.Models
+﻿namespace Tamagotchi_lib
 {
     public enum StatusEffect
     {

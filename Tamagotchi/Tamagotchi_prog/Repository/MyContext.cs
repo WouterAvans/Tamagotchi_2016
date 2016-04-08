@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
+﻿using System.Data.Entity;
+using Tamagotchi_prog.Models;
 
-namespace Tamagotchi_prog.Models
+namespace Tamagotchi_prog.Repository
 {
     public class MyContext : DbContext
     {
