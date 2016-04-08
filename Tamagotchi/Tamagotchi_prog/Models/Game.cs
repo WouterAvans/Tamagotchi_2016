@@ -18,8 +18,9 @@ namespace Tamagotchi_prog.Models
         public GameActionModule ActionModule;
         public List<IGameRule> EnabledRules { get; set; }
 
-        public Game()
+        public Game(List<IGameRule> enabledRules )
         {
+            EnabledRules = enabledRules;
             _myContext = new MyContext();
             ActionModule = new GameActionModule();
 
@@ -29,7 +30,7 @@ namespace Tamagotchi_prog.Models
                 {"boredom", 0.25},
                 {"isolation", 0.083},
                 {"hunger", 0.083},
-                {"sleep", 0.083}
+                {"fatigue", 0.083}
             };
 
             //Base Action Multipliers.
@@ -55,7 +56,7 @@ namespace Tamagotchi_prog.Models
        
         public double PassedTime(DateTime time)
         {
-            DateTime timeNow = DateTime.Now;
+            var timeNow = DateTime.Now;
             return Math.Round(((timeNow - time).TotalMinutes) , 2); 
         }
 
@@ -77,7 +78,7 @@ namespace Tamagotchi_prog.Models
 
         public Tamagotchi GetTamagotchi()
         {
-            return _myContext.Tamagotchis.First();
+            return _myContext.Tamagotchis.Find("TestTamagotchi");
         }
     }
 }

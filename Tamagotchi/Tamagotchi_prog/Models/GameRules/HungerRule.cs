@@ -7,7 +7,7 @@ namespace Tamagotchi_prog.Models.GameRules
     {
         public Tamagotchi ExecuteRule(Tamagotchi tamagotchi, double timePassed, Dictionary<string, double> multipliers)
         {
-            if (tamagotchi.StatusEffects.Contains(StatusEffect.Munchies))
+            if (tamagotchi.StatusEffects.Munchies)
             {
                 tamagotchi.Hunger += (int)Math.Round(timePassed * (multipliers["hunger"] * 2));
             }
@@ -16,7 +16,7 @@ namespace Tamagotchi_prog.Models.GameRules
                 tamagotchi.Hunger += (int)Math.Round(timePassed * multipliers["hunger"]);
             }
 
-            if (tamagotchi.Hunger >= 100 && !tamagotchi.StatusEffects.Contains(StatusEffect.Athlete))
+            if (tamagotchi.Hunger >= 100 && !tamagotchi.StatusEffects.Athlete)
             {
                 tamagotchi.IsDead = true;
             }

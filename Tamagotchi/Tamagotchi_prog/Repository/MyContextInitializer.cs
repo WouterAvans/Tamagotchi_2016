@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using Tamagotchi_prog.Models;
 
 namespace Tamagotchi_prog.Repository
@@ -20,19 +21,21 @@ namespace Tamagotchi_prog.Repository
                 Hunger = 40,
                 Sleep = 30,
                 IsDead = false,
-                LastAccessTime = DateTime.Now,
-                StatusEffects = new List<StatusEffect>()
+                LastAccessTime = new DateTime(2016, 4, 8, 11, 0, 0),
+                StatusEffects = new StatusEffect()
+                {
+                    Athlete = false,
+                    Crazy = false,
+                    Munchies = false
+                }
             });
 
-            context.Settings.Add(new Settings()
+            context.RuleSettings.Add(new RuleSettings()
             {
-                EnabledRules = new Dictionary<String, bool>
-                {
-                    {"Boredom", true},
-                    {"Hunger", true},
-                    {"Fatigue", true},
-                    {"Isolation", true}
-                }
+                Boredom = true,
+                Hunger = true,
+                Fatigue = true,
+                Isolation = true
             });
 
             context.SaveChanges();

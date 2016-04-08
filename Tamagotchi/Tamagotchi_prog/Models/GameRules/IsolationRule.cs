@@ -11,20 +11,20 @@ namespace Tamagotchi_prog.Models.GameRules
 
             if (tamagotchi.Health <= 20)
             {
-                tamagotchi.StatusEffects.Add(StatusEffect.Athlete);
+                tamagotchi.StatusEffects.Athlete = true;
             }
-            else if (tamagotchi.StatusEffects.Contains(StatusEffect.Athlete))
+            else if (tamagotchi.StatusEffects.Athlete)
             {
-                tamagotchi.StatusEffects.Remove(StatusEffect.Athlete);
+                tamagotchi.StatusEffects.Athlete = false;
             }
 
             if(tamagotchi.Health >= 100)
             {
-                tamagotchi.StatusEffects.Add(StatusEffect.Crazy);
+                tamagotchi.StatusEffects.Crazy = true;
             }
-            else if (tamagotchi.StatusEffects.Contains(StatusEffect.Crazy))
+            else if (tamagotchi.StatusEffects.Crazy)
             {
-                tamagotchi.StatusEffects.Remove(StatusEffect.Crazy);
+                tamagotchi.StatusEffects.Crazy = false;
             }
 
             return tamagotchi;
