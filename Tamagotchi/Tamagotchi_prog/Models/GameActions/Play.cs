@@ -12,9 +12,32 @@ namespace Tamagotchi_prog.Models.GameActions
             this.Action = Actions.Play;
         }
 
-        public override void ExecuteGameAction(Tamagotchi tamagotchi, Dictionary<String, double> actionMultipliers, Dictionary<String, double> actionTimeSpan)
+        public override int ExecuteGameAction(Tamagotchi tamagotchi, Dictionary<String, double> actionTimeSpan)
         {
+            if (CheckDeath(tamagotchi))
+            {
+                tamagotchi.IsDead = true;
+                return 0;
+            }
 
+            if (tamagotchi.CooldownTime <= 0)
+            {
+                tamagotchi.CooldownTime = actionTimeSpan["play"];
+                tamagotchi.LastAction = Actions.Play;
+                return 1;
+            }
+            return 0;
+        }
+
+        public override int StopAction(Tamagotchi tamagotchi, Dictionary<string, double> actionMultipliers, double passedTime)
+        {
+            if (tamagotchi.CooldownTime < passedTime)
+            {
+                tamagotchi.Boredom = (int)(tamagotchi.Boredom - actionMultipliers["play"]);
+                tamagotchi.LastAction = Actions.None;
+                return 1;
+            }
+            return 0;
         }
     }
 }

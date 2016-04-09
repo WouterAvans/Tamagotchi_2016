@@ -2,6 +2,7 @@
 using System.Threading;
 using Ninject;
 using Tamagotchi_prog.Models;
+using Tamagotchi_prog.Models.GameActions;
 using Tamagotchi_prog.Models.GameRules;
 
 namespace Tamagotchi_Console
@@ -14,7 +15,6 @@ namespace Tamagotchi_Console
             Ninject.IKernel kernel = new StandardKernel(new GameRuleModule());
             var game = kernel.Get<Game>();
             var tamagotchi = game.GetTamagotchi();
-            Thread.Sleep(5000);
             game.ExecuteAllRules(tamagotchi);
             Console.WriteLine(tamagotchi.Name);
             Console.WriteLine(tamagotchi.LastAccessTime);
@@ -23,15 +23,7 @@ namespace Tamagotchi_Console
             Console.WriteLine(tamagotchi.Boredom);
             Console.WriteLine(tamagotchi.Sleep);
             Console.WriteLine(tamagotchi.IsDead);
-            game.ExecuteAllRules(tamagotchi);
-            Console.WriteLine(tamagotchi.Name);
-            Console.WriteLine(tamagotchi.LastAccessTime);
-            Console.WriteLine(tamagotchi.Health);
-            Console.WriteLine(tamagotchi.Hunger);
-            Console.WriteLine(tamagotchi.Boredom);
-            Console.WriteLine(tamagotchi.Sleep);
-            Console.WriteLine(tamagotchi.IsDead);
-            game.ExecuteAllRules(tamagotchi);
+            game.ExecuteAction(tamagotchi, Actions.Eat);
             Console.WriteLine(tamagotchi.Name);
             Console.WriteLine(tamagotchi.LastAccessTime);
             Console.WriteLine(tamagotchi.Health);

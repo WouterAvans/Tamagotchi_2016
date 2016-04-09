@@ -61,6 +61,12 @@ namespace Tamagotchi_prog.Models
 
         public void ExecuteAllRules(Tamagotchi tamagotchi)
         {
+            if (tamagotchi.LastAction != Actions.None)
+            {
+                var LastAction = PickActionObject(tamagotchi.LastAction);
+                LastAction.StopAction(tamagotchi, ActionMultipliers, PassedTime(tamagotchi.LastAccessTime));
+            }
+
             foreach (var rule in EnabledRules)
             {
                 tamagotchi = rule.ExecuteRule(tamagotchi, PassedTime(tamagotchi.LastAccessTime) , RuleMultipliers);
@@ -72,26 +78,45 @@ namespace Tamagotchi_prog.Models
 
         public void ExecuteAction(Tamagotchi tamagotchi, Actions action)
         {
+            if (tamagotchi.LastAction != Actions.None)
+            {
+                var LastAction = PickActionObject(tamagotchi.LastAction);
+                LastAction.StopAction(tamagotchi, ActionMultipliers, PassedTime(tamagotchi.LastAccessTime));
+            }
+
+            _action = PickActionObject(action);
+            ExecuteAllRules(tamagotchi);
+            _action.ExecuteGameAction(tamagotchi, ActionTimeSpan);
+
+            _myContext.Tamagotchis.AddOrUpdate(tamagotchi);
+            _myContext.SaveChanges();
+        }
+
+        public GameAction PickActionObject(Actions action)
+        {
+            GameAction returnAction;
+
             switch (action)
             {
                 case Actions.Hug:
-                    _action = new Hug();
+                    returnAction = new Hug();
                     break;
                 case Actions.Workout:
-                    _action = new Workout();
+                    returnAction = new Workout();
                     break;
                 case Actions.Play:
-                    _action = new Play();
+                    returnAction = new Play();
                     break;
                 case Actions.Eat:
-                    _action = new Eat();
+                    returnAction = new Eat();
                     break;
                 case Actions.Sleep:
-                    _action = new Sleep();
+                    returnAction = new Sleep();
                     break;
+                default:
+                    throw new Exception("Invalid Action");
             }
-            this.ExecuteAllRules(tamagotchi);
-            _action.ExecuteGameAction(tamagotchi, ActionMultipliers, ActionTimeSpan);
+            return returnAction;
         }
 
         public Tamagotchi GetTamagotchi()

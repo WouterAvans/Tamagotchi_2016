@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Dynamic;
+using Tamagotchi_prog.Models.GameActions;
 
 namespace Tamagotchi_prog.Models
 {
@@ -15,6 +16,9 @@ namespace Tamagotchi_prog.Models
         public int Hunger { get; set; }
         //TimeRemaining to achieve munchies
         public double MunchieTime { get; set; }
+        //ActionCooldown time in minutes
+        public double CooldownTime { get; set; }
+        public Actions LastAction { get; set; }
         public int Sleep { get; set; }
 
         public int Boredom { get; set; }
