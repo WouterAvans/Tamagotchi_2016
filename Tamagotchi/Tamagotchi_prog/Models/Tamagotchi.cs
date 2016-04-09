@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Dynamic;
 
 namespace Tamagotchi_prog.Models
 {
@@ -12,7 +13,8 @@ namespace Tamagotchi_prog.Models
         public String Name { get; set; }
 
         public int Hunger { get; set; }
-
+        //TimeRemaining to achieve munchies
+        public double MunchieTime { get; set; }
         public int Sleep { get; set; }
 
         public int Boredom { get; set; }

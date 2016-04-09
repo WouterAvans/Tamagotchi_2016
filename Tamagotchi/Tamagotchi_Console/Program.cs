@@ -11,7 +11,6 @@ namespace Tamagotchi_Console
 
         public static void Main(string[] args)
         {
-            //CommandHandler commandHandler = new CommandHandler();
             Ninject.IKernel kernel = new StandardKernel(new GameRuleModule());
             var game = kernel.Get<Game>();
             var tamagotchi = game.GetTamagotchi();
