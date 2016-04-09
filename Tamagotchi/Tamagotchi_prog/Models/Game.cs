@@ -15,14 +15,13 @@ namespace Tamagotchi_prog.Models
         public Dictionary<String, double> RuleMultipliers;
         public Dictionary<String, double> ActionMultipliers;
         public Dictionary<String, double> ActionTimeSpan;
-        public GameActionModule ActionModule;
+        private GameAction _action;
         public List<IGameRule> EnabledRules { get; set; }
 
         public Game(List<IGameRule> enabledRules )
         {
             EnabledRules = enabledRules;
             _myContext = new MyContext();
-            ActionModule = new GameActionModule();
 
             //Base Rule Multipliers in minutes. Will be overriden by status effects
             RuleMultipliers = new Dictionary<string, double>
@@ -71,9 +70,28 @@ namespace Tamagotchi_prog.Models
             _myContext.SaveChanges();
         }
 
-        public void ExecuteAction(Tamagotchi tamagotchi, Action action)
+        public void ExecuteAction(Tamagotchi tamagotchi, Actions action)
         {
-            
+            switch (action)
+            {
+                case Actions.Hug:
+                    _action = new Hug();
+                    break;
+                case Actions.Workout:
+                    _action = new Workout();
+                    break;
+                case Actions.Play:
+                    _action = new Play();
+                    break;
+                case Actions.Eat:
+                    _action = new Eat();
+                    break;
+                case Actions.Sleep:
+                    _action = new Sleep();
+                    break;
+            }
+            this.ExecuteAllRules(tamagotchi);
+            _action.ExecuteGameAction(tamagotchi, ActionMultipliers, ActionTimeSpan);
         }
 
         public Tamagotchi GetTamagotchi()
