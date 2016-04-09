@@ -15,14 +15,13 @@ namespace Tamagotchi_prog.Models
         public Dictionary<String, double> RuleMultipliers;
         public Dictionary<String, double> ActionMultipliers;
         public Dictionary<String, double> ActionTimeSpan;
-        public GameActionModule ActionModule;
+        private GameAction _action;
         public List<IGameRule> EnabledRules { get; set; }
 
         public Game(List<IGameRule> enabledRules )
         {
             EnabledRules = enabledRules;
             _myContext = new MyContext();
-            ActionModule = new GameActionModule();
 
             //Base Rule Multipliers in minutes. Will be overriden by status effects
             RuleMultipliers = new Dictionary<string, double>
@@ -62,6 +61,12 @@ namespace Tamagotchi_prog.Models
 
         public void ExecuteAllRules(Tamagotchi tamagotchi)
         {
+            if (tamagotchi.LastAction != Actions.None)
+            {
+                var LastAction = PickActionObject(tamagotchi.LastAction);
+                LastAction.StopAction(tamagotchi, ActionMultipliers, PassedTime(tamagotchi.LastAccessTime));
+            }
+
             foreach (var rule in EnabledRules)
             {
                 tamagotchi = rule.ExecuteRule(tamagotchi, PassedTime(tamagotchi.LastAccessTime) , RuleMultipliers);
@@ -71,9 +76,47 @@ namespace Tamagotchi_prog.Models
             _myContext.SaveChanges();
         }
 
-        public void ExecuteAction(Tamagotchi tamagotchi, Action action)
+        public void ExecuteAction(Tamagotchi tamagotchi, Actions action)
         {
-            
+            if (tamagotchi.LastAction != Actions.None)
+            {
+                var LastAction = PickActionObject(tamagotchi.LastAction);
+                LastAction.StopAction(tamagotchi, ActionMultipliers, PassedTime(tamagotchi.LastAccessTime));
+            }
+
+            _action = PickActionObject(action);
+            ExecuteAllRules(tamagotchi);
+            _action.ExecuteGameAction(tamagotchi, ActionTimeSpan);
+
+            _myContext.Tamagotchis.AddOrUpdate(tamagotchi);
+            _myContext.SaveChanges();
+        }
+
+        public GameAction PickActionObject(Actions action)
+        {
+            GameAction returnAction;
+
+            switch (action)
+            {
+                case Actions.Hug:
+                    returnAction = new Hug();
+                    break;
+                case Actions.Workout:
+                    returnAction = new Workout();
+                    break;
+                case Actions.Play:
+                    returnAction = new Play();
+                    break;
+                case Actions.Eat:
+                    returnAction = new Eat();
+                    break;
+                case Actions.Sleep:
+                    returnAction = new Sleep();
+                    break;
+                default:
+                    throw new Exception("Invalid Action");
+            }
+            return returnAction;
         }
 
         public Tamagotchi GetTamagotchi()
