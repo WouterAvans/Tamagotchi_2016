@@ -72,8 +72,10 @@ namespace Tamagotchi_prog.Models
                 tamagotchi = rule.ExecuteRule(tamagotchi, PassedTime(tamagotchi.LastAccessTime) , RuleMultipliers);
             }
 
+            tamagotchi.LastAccessTime = DateTime.Now;
             MyContext.Tamagotchis.AddOrUpdate(tamagotchi);
             MyContext.SaveChanges();
+           
         }
 
         public void ExecuteAction(Tamagotchi tamagotchi, Actions action)
@@ -87,9 +89,11 @@ namespace Tamagotchi_prog.Models
             _action = PickActionObject(action);
             ExecuteAllRules(tamagotchi);
             _action.ExecuteGameAction(tamagotchi, ActionTimeSpan);
-
+            
+            tamagotchi.LastAccessTime = DateTime.Now;
             MyContext.Tamagotchis.AddOrUpdate(tamagotchi);
             MyContext.SaveChanges();
+            
         }
 
         public GameAction PickActionObject(Actions action)
