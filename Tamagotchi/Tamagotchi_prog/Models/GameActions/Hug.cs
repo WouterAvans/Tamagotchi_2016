@@ -23,6 +23,7 @@ namespace Tamagotchi_prog.Models.GameActions
             if (tamagotchi.CooldownTime <= 0)
             {
                 tamagotchi.CooldownTime = actionTimeSpan["hug"];
+                tamagotchi.StartActionTime = DateTime.Now;
                 tamagotchi.LastAction = Actions.Hug;
                 return 1;
             }

@@ -23,6 +23,7 @@ namespace Tamagotchi_prog.Models.GameActions
             if (tamagotchi.CooldownTime <= 0)
             {
                 tamagotchi.CooldownTime = actionTimeSpan["eat"];
+                tamagotchi.StartActionTime = DateTime.Now;
                 tamagotchi.LastAction = Actions.Eat;
                 return 1;
             }
@@ -32,7 +33,7 @@ namespace Tamagotchi_prog.Models.GameActions
 
         public override int StopAction(Tamagotchi tamagotchi, Dictionary<string, double> actionMultipliers, double passedTime)
         {
-            if (tamagotchi.CooldownTime < passedTime)
+            if (tamagotchi.CooldownTime <= passedTime)
             {
                 tamagotchi.Hunger = (int)(tamagotchi.Hunger - actionMultipliers["eat"]);
                 tamagotchi.LastAction = Actions.None;

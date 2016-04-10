@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.Design;
 using System.Threading;
 using Ninject;
 using Tamagotchi_prog.Models;
@@ -12,26 +13,34 @@ namespace Tamagotchi_Console
 
         public static void Main(string[] args)
         {
-            Ninject.IKernel kernel = new StandardKernel(new GameRuleModule());
-            var game = kernel.Get<Game>();
-            var tamagotchi = game.GetTamagotchi();
-            game.ExecuteAllRules(tamagotchi);
-            Console.WriteLine(tamagotchi.Name);
-            Console.WriteLine(tamagotchi.LastAccessTime);
-            Console.WriteLine(tamagotchi.Health);
-            Console.WriteLine(tamagotchi.Hunger);
-            Console.WriteLine(tamagotchi.Boredom);
-            Console.WriteLine(tamagotchi.Sleep);
-            Console.WriteLine(tamagotchi.IsDead);
-            game.ExecuteAction(tamagotchi, Actions.Eat);
-            Console.WriteLine(tamagotchi.Name);
-            Console.WriteLine(tamagotchi.LastAccessTime);
-            Console.WriteLine(tamagotchi.Health);
-            Console.WriteLine(tamagotchi.Hunger);
-            Console.WriteLine(tamagotchi.Boredom);
-            Console.WriteLine(tamagotchi.Sleep);
-            Console.WriteLine(tamagotchi.IsDead);
-            Console.ReadKey();
+            var commandHandler = new CommandHandler();
+
+            Console.WriteLine("----------Welcome to tamagotchi--------");
+            Console.WriteLine("----------Available Commands-----------");
+            Console.WriteLine("Select [TamagotchiName]");
+            Console.WriteLine("Action [Eat | Hug | Play | Sleep | Workout]");
+            Console.WriteLine("Status [TamagotchiName]");
+            Console.WriteLine("Create [TamagotchiName]");
+            Console.WriteLine("Clear");
+            Console.WriteLine("Exit");
+            Console.WriteLine("-------------Good Luck-----------------");
+
+            while (true)
+            {
+                Console.WriteLine("Enter Command:");
+                var command = Console.ReadLine();
+                command = command.ToLower();
+
+                if (command.Equals("exit"))
+                {
+                    return;
+                }
+
+                if (!commandHandler.HandleCommand(command))
+                {
+                    Console.WriteLine("Invalid Command");
+                }
+            }
         }
     }
 }
