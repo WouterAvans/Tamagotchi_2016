@@ -11,7 +11,7 @@ namespace Tamagotchi_prog.Models
 {
     public class Game
     {
-        private readonly MyContext _myContext;
+        public readonly MyContext MyContext { get; set;}
         public Dictionary<String, double> RuleMultipliers;
         public Dictionary<String, double> ActionMultipliers;
         public Dictionary<String, double> ActionTimeSpan;
@@ -21,7 +21,7 @@ namespace Tamagotchi_prog.Models
         public Game(List<IGameRule> enabledRules )
         {
             EnabledRules = enabledRules;
-            _myContext = new MyContext();
+            MyContext = new MyContext();
 
             //Base Rule Multipliers in minutes. Will be overriden by status effects
             RuleMultipliers = new Dictionary<string, double>
@@ -73,8 +73,9 @@ namespace Tamagotchi_prog.Models
             }
 
             tamagotchi.LastAccessTime = DateTime.Now;
-            _myContext.Tamagotchis.AddOrUpdate(tamagotchi);
-            _myContext.SaveChanges();
+            MyContext.Tamagotchis.AddOrUpdate(tamagotchi);
+            MyContext.SaveChanges();
+           
         }
 
         public void ExecuteAction(Tamagotchi tamagotchi, Actions action)
@@ -88,10 +89,11 @@ namespace Tamagotchi_prog.Models
             _action = PickActionObject(action);
             ExecuteAllRules(tamagotchi);
             _action.ExecuteGameAction(tamagotchi, ActionTimeSpan);
-
+            
             tamagotchi.LastAccessTime = DateTime.Now;
-            _myContext.Tamagotchis.AddOrUpdate(tamagotchi);
-            _myContext.SaveChanges();
+            MyContext.Tamagotchis.AddOrUpdate(tamagotchi);
+            MyContext.SaveChanges();
+            
         }
 
         public GameAction PickActionObject(Actions action)
@@ -123,7 +125,7 @@ namespace Tamagotchi_prog.Models
 
         public Tamagotchi GetTamagotchi()
         {
-            return _myContext.Tamagotchis.Find("TestTamagotchi");
+            return MyContext.Tamagotchis.Find("TestTamagotchi");
         }
     }
 }
