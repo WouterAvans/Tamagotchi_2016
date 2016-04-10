@@ -7,7 +7,7 @@ using Tamagotchi_prog.Models.GameActions;
 
 namespace Tamagotchi_prog.Repository
 {
-    public class MyContextInitializer : DropCreateDatabaseAlways<MyContext>
+    public class MyContextInitializer : DropCreateDatabaseIfModelChanges<MyContext>
     {
 
         protected override void Seed(MyContext context)

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Tamagotchi_prog.Models;
 using Tamagotchi_prog.Repository;
 
-namespace Tamagotchi.test
+namespace Tamagotchi_prog.Repository
 {
     public class MockMyContext : DbContext
     {

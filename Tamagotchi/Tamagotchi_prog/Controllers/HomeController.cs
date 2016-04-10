@@ -188,5 +188,23 @@ namespace Tamagotchi_prog.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Settings()
+        {
+            return View();
+        }
+
+        
+        [HttpPost]
+        public ActionResult SetSettings(RuleSettings model)
+        {
+            _myContext.RuleSettings.Find(1).Boredom = model.Boredom;
+            _myContext.RuleSettings.First().Hunger = model.Hunger;
+            _myContext.RuleSettings.First().Isolation = model.Isolation;
+            _myContext.RuleSettings.First().Fatigue = model.Fatigue;
+
+            return RedirectToAction("Index");
+        }
+        
+
     }
 }

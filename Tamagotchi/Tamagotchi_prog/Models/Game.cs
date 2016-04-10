@@ -20,6 +20,41 @@ namespace Tamagotchi_prog.Models
         public Dictionary<String, double> ActionTimeSpan { get; set; }
         public List<IGameRule> EnabledRules { get; set; }
 
+        public Game(List<IGameRule> enabledRules, MockMyContext mockMyContext)
+        {
+            EnabledRules = enabledRules;
+            mockMyContext = new MockMyContext();
+
+            //Base Rule Multipliers in minutes. Will be overriden by status effects
+            RuleMultipliers = new Dictionary<string, double>
+            {
+                {"boredom", 0.25},
+                {"isolation", 0.083},
+                {"hunger", 0.083},
+                {"fatigue", 0.083}
+            };
+
+            //Base Action Multipliers.
+            ActionMultipliers = new Dictionary<string, double>
+            {
+                {"eat", 100},
+                {"sleep", 100},
+                {"play", 10},
+                {"workout", 5},
+                {"hug", 10}
+            };
+
+            //Time actions last in minutes
+            ActionTimeSpan = new Dictionary<string, double>
+            {
+                {"eat", 0.5},
+                {"sleep", 120},
+                {"play", 0.5},
+                {"workout", 1},
+                {"hug", 1}
+            };
+        }
+
         public Game(List<IGameRule> enabledRules )
         {
             EnabledRules = enabledRules;
