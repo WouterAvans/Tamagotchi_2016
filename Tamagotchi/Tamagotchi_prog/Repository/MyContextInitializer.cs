@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using Tamagotchi_prog.Models;
+using Tamagotchi_prog.Models.GameActions;
 
 namespace Tamagotchi_prog.Repository
 {
@@ -21,7 +22,9 @@ namespace Tamagotchi_prog.Repository
                 Hunger = 40,
                 Sleep = 30,
                 IsDead = false,
-                LastAccessTime = new DateTime(2016, 4, 8, 11, 0, 0),
+                LastAccessTime = DateTime.Now,
+                LastAction = Actions.None,
+                StartActionTime = DateTime.Now,
                 StatusEffects = new StatusEffect()
                 {
                     Athlete = false,

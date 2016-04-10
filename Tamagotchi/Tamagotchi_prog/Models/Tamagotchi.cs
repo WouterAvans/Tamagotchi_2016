@@ -13,19 +13,23 @@ namespace Tamagotchi_prog.Models
         [Key]
         public String Name { get; set; }
 
-        public int Hunger { get; set; }
+        public DateTime LastAccessTime { get; set; }
         //TimeRemaining to achieve munchies
         public double MunchieTime { get; set; }
         //ActionCooldown time in minutes
         public double CooldownTime { get; set; }
+
+        public DateTime StartActionTime { get; set; }
+
         public Actions LastAction { get; set; }
+
+        public int Hunger { get; set; }
+
         public int Sleep { get; set; }
 
         public int Boredom { get; set; }
 
         public int Health { get; set; }
-
-        public DateTime LastAccessTime { get; set; }
 
         public String ImageURL { get; set; }
 
