@@ -6,6 +6,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Tamagotchi_prog.Models;
+using Tamagotchi_prog.Models.GameActions;
 using Tamagotchi_prog.Models.GameRules;
 using Tamagotchi_prog.Repository;
 
@@ -13,17 +14,18 @@ namespace Tamagotchi_prog.Controllers
 {
     public class HomeController : Controller
     {
+        private static Ninject.IKernel kernel = new StandardKernel(new GameRuleModule());
+        private static Game game = kernel.Get<Game>();
+
+        private MyContext _myContext = game.MyContext;
 
         public ActionResult Index()
         {
-            Ninject.IKernel kernel = new StandardKernel(new GameRuleModule());
-            var game = kernel.Get<Game>();
+            List<Tamagotchi> deadTamagotchis = new List<Tamagotchi>();
 
-            using (var context = new MyContext())
-            {
-                List<Tamagotchi> deadTamagotchis = new List<Tamagotchi>();
-
-                foreach (Tamagotchi tamagotchi in context.Tamagotchis.ToList())
+            //using (var context = new MyContext())
+            //{
+                foreach (Tamagotchi tamagotchi in _myContext.Tamagotchis.ToList())
                 {
                     game.ExecuteAllRules(tamagotchi);
 
@@ -55,22 +57,22 @@ namespace Tamagotchi_prog.Controllers
                         }
                     }
 
-                    context.SaveChanges();
+                    _myContext.SaveChanges();
                 }
 
                 ViewBag.DeadTamagotchis = deadTamagotchis;
 
-               return View(context.Tamagotchis.ToList().Where(t => !t.IsDead));
-            }
+               return View(_myContext.Tamagotchis.ToList().Where(t => !t.IsDead));
+            //}
         }
 
 
         [HttpPost]
         public ActionResult Create(string name)
         {
-            using(var context = new MyContext())
-            {
-                foreach (Tamagotchi tamagotchi in context.Tamagotchis.ToList())
+            //using(var context = new MyContext())
+            //{
+                foreach (Tamagotchi tamagotchi in _myContext.Tamagotchis.ToList())
                 {
                     if(tamagotchi.Name.Equals(name))
                     {
@@ -90,9 +92,9 @@ namespace Tamagotchi_prog.Controllers
                 newTamagotchi.StatusEffectId = 1;
                 newTamagotchi.LastAccessTime = DateTime.Now;
                 
-                context.Tamagotchis.Add(newTamagotchi);
-                context.SaveChanges();
-            }
+                _myContext.Tamagotchis.Add(newTamagotchi);
+                _myContext.SaveChanges();
+            //}
 
             return RedirectToAction("Index");
         }
@@ -104,15 +106,127 @@ namespace Tamagotchi_prog.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            using(var context = new MyContext())
-            {
-                tamagotchi = context.Tamagotchis.Find(name);
-            }
+            //using(var context = new MyContext())
+            //{
+                tamagotchi = _myContext.Tamagotchis.Find(name);
+            //}
             if (tamagotchi == null)
             {
                 return HttpNotFound();
             }
             return View(tamagotchi);
         }
+
+        public ActionResult Eat(String name)
+        {
+            Tamagotchi tamagotchi;
+            if (name == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //using (var context = new MyContext())
+            //{
+                tamagotchi = _myContext.Tamagotchis.Find(name);
+                if (tamagotchi == null)
+                {
+                    return HttpNotFound();
+                }
+                else
+                {
+                    game.ExecuteAction(tamagotchi, Actions.Eat);
+                    _myContext.SaveChanges();    
+                }                     
+            //}
+            return RedirectToAction("Index");
+        }
+        public ActionResult Sleep(String name)
+        {
+            Tamagotchi tamagotchi;
+            if (name == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //using (var context = new MyContext())
+            //{
+                tamagotchi = _myContext.Tamagotchis.Find(name);
+                if (tamagotchi == null)
+                {
+                    return HttpNotFound();
+                }
+                else
+                {
+                    game.ExecuteAction(tamagotchi, Actions.Sleep);
+                    _myContext.SaveChanges();
+                }
+            //}
+            return RedirectToAction("Index");
+        }
+        public ActionResult Play(String name)
+        {
+            Tamagotchi tamagotchi;
+            if (name == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //using (var context = new MyContext())
+            //{
+                tamagotchi = _myContext.Tamagotchis.Find(name);
+                if (tamagotchi == null)
+                {
+                    return HttpNotFound();
+                }
+                else
+                {
+                    game.ExecuteAction(tamagotchi, Actions.Play);
+                    _myContext.SaveChanges();
+                }
+            //}
+            return RedirectToAction("Index");
+        }
+        public ActionResult Workout(String name)
+        {
+            Tamagotchi tamagotchi;
+            if (name == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //using (var context = new MyContext())
+            //{
+                tamagotchi = _myContext.Tamagotchis.Find(name);
+                if (tamagotchi == null)
+                {
+                    return HttpNotFound();
+                }
+                else
+                {
+                    game.ExecuteAction(tamagotchi, Actions.Workout);
+                    _myContext.SaveChanges();
+                }
+            //}
+            return RedirectToAction("Index");
+        }
+        public ActionResult Hug(String name)
+        {
+            Tamagotchi tamagotchi;
+            if (name == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //using (var context = new MyContext())
+            //{
+                tamagotchi = _myContext.Tamagotchis.Find(name);
+                if (tamagotchi == null)
+                {
+                    return HttpNotFound();
+                }
+                else
+                {
+                    game.ExecuteAction(tamagotchi, Actions.Hug);
+                    _myContext.SaveChanges();
+                }
+            //}
+            return RedirectToAction("Index");
+        }
+
     }
 }

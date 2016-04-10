@@ -15,7 +15,7 @@
     <div class="col-md-1">
         <dl class="dl-horizontal">
             <dt>
-               @Html.DisplayNameFor(model => model.Hunger)               
+                @Html.DisplayNameFor(model => model.Hunger)
             </dt>
 
             <dd>
@@ -50,11 +50,11 @@
 </div>
 <br>
 <div class="btn-group">
-    <button type="button" class="btn btn-primary">Eten</button>
-    <button type="button" class="btn btn-primary">Slapen</button>
-    <button type="button" class="btn btn-primary">Spelen</button>
-    <button type="button" class="btn btn-primary">Trainen</button>
-    <button type="button" class="btn btn-primary">Knuffelen</button>
+    @Html.ActionLink("Eat", "Eat", new { name = Model.Name }) |
+    @Html.ActionLink("Sleep", "Sleep", new { name = Model.Name }) |
+    @Html.ActionLink("Play", "Play", new { name = Model.Name }) |
+    @Html.ActionLink("Workout", "Workout", new { name = Model.Name }) |
+    @Html.ActionLink("Hug", "Hug", new { name = Model.Name })
 </div>
 <hr>
 <p>
