@@ -2,6 +2,6 @@
 {
     public enum Actions
     {
-        Eat, Sleep, Play, Workout, Hug
+        Eat, Sleep, Play, Workout, Hug, None
     }
 }
