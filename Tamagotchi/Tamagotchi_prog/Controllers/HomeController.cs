@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Ninject;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Tamagotchi_prog.Models;
+using Tamagotchi_prog.Models.GameRules;
 using Tamagotchi_prog.Repository;
 
 namespace Tamagotchi_prog.Controllers
@@ -14,12 +16,17 @@ namespace Tamagotchi_prog.Controllers
 
         public ActionResult Index()
         {
+            Ninject.IKernel kernel = new StandardKernel(new GameRuleModule());
+            var game = kernel.Get<Game>();
+
             using (var context = new MyContext())
             {
                 List<Tamagotchi> deadTamagotchis = new List<Tamagotchi>();
 
                 foreach (Tamagotchi tamagotchi in context.Tamagotchis.ToList())
                 {
+                    game.ExecuteAllRules(tamagotchi);
+
                     int[] values = new int[] { tamagotchi.Health, tamagotchi.Hunger, tamagotchi.Sleep, tamagotchi.Boredom };
                     int highestValue = values.Max();
 
@@ -41,7 +48,7 @@ namespace Tamagotchi_prog.Controllers
                         {
                             tamagotchi.ImageURL = "../Content/img/bored_tamagotchi.png";
                         }
-                        if (tamagotchi.Sleep == 100 || tamagotchi.Hunger == 100)
+                        if (tamagotchi.IsDead)
                         {
                             tamagotchi.ImageURL = "../Content/img/dead_tamagotchi.png";
                             deadTamagotchis.Add(tamagotchi);
@@ -53,7 +60,7 @@ namespace Tamagotchi_prog.Controllers
 
                 ViewBag.DeadTamagotchis = deadTamagotchis;
 
-               return View(context.Tamagotchis.ToList().Where(t => t.Hunger != 100 && t.Sleep != 100));
+               return View(context.Tamagotchis.ToList().Where(t => !t.IsDead));
             }
         }
 
@@ -77,7 +84,10 @@ namespace Tamagotchi_prog.Controllers
                 newTamagotchi.Hunger = 0;
                 newTamagotchi.Sleep = 0;
                 newTamagotchi.Boredom = 0;
+                newTamagotchi.IsDead = false;
                 newTamagotchi.ImageURL = "../Content/img/normal_tamagotchi.png";
+                newTamagotchi.StatusEffects = null;
+                newTamagotchi.StatusEffectId = 1;
                 newTamagotchi.LastAccessTime = DateTime.Now;
                 
                 context.Tamagotchis.Add(newTamagotchi);
@@ -104,23 +114,5 @@ namespace Tamagotchi_prog.Controllers
             }
             return View(tamagotchi);
         }
-
-        public ActionResult About()
-        {
-            using (var context = new MyContext())
-            {
-                ViewBag.Message = "Your application description page.";
-                return View(context.Tamagotchis.ToList());
-            }
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
-
     }
 }
