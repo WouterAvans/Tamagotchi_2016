@@ -12,7 +12,8 @@ namespace Tamagotchi.test
     {
 
         private Game _game;
-        private Tamagotchi testTamagotchi;
+        private Tamagotchi_prog.Models.Tamagotchi _testTamagotchi;
+        private MockMyContext _mockMyContext = new MockMyContext();
 
 
         //gebruik dit als een constructor waar je alles klaar zet voor je test
@@ -24,7 +25,7 @@ namespace Tamagotchi.test
             Ninject.IKernel kernel = new StandardKernel(new GameRuleModule());
             _game = kernel.Get<Game>();
 
-            testTamagotchi = new Tamagotchi()
+            _testTamagotchi = new Tamagotchi_prog.Models.Tamagotchi()
             {
                 //init je test tamagotchi
             };
